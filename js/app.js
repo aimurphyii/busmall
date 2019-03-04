@@ -8,7 +8,7 @@ var fullCatalogue = [];
 
 // Create a constructor function for catalogue photos
 
-funciton BusMall(name) {
+function BusMallProduct(name) {
   this.name = name;
   this.filepath = `img/${name}.jpg`;
   this.views=0;
@@ -18,12 +18,19 @@ funciton BusMall(name) {
   fullCatalogue.push(this);
 }
 
-//Run the constructor function with our catalogue
+//Run the constructor function with our catalogue, so we have a full catalogue of items to run through
 
-new BusMall('img');
+new BusMallProduct('bag');
+new BusMallProduct('banana');
+new BusMallProduct('bathroom');
+// new BusMallProduct('boots');
+// new BusMallProduct('breakfast');
+// new BusMallProduct('bubblegum');
+// new BusMallProduct('chair');
+// new BusMallProduct('cthulu');
 
 function showRandomItems(){
-  // Make a fn that will generate 3 items from our list at random. Math.random gives us a value between 0 and 1. We can multiply that value by the length of our array in order to call an index from our array. We will need to use Math.floor, so that we get integers and not decimal values.
+  // Make a function that will generate 3 items from our catalogue at random. Math.random gives us a value between 0 and 1. We can multiply that value by the length of our array in order to call an index from our array. We will need to use Math.floor, so that we get integers and not decimal values.
 
   var random=Math.floor(Math.random()*fullCatalogue.length);
 
@@ -38,14 +45,17 @@ function showRandomItems(){
   fullCatalogue[random].views++;
 
   console.log('current item is ', fullCatalogue[random]);
+
 }
 
 showRandomItems();
+
 
 catalogue.addEventListener('click', theClickHandler);
 
 function theClickHandler(event) {
   console.log('target', event.target)
+  
   showRandomItems();
 }
 
