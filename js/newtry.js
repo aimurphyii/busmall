@@ -163,7 +163,7 @@ function showResults() {
     racknstack.appendChild(listline);
   }
 }
-// 
+// edit the handler to turn off listeners and end voting
 function theClickHandler(event) {
   console.log('target', event.target);
   showRandomItems();
