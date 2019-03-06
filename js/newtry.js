@@ -102,7 +102,7 @@ function showRandomItems() {
   fullCatalogue[random3].views++;
   console.log('current item is ', fullCatalogue[random3]);
 
-// We also want to count how many times it is chosen
+  // We also want to count how many times it is chosen
   catalogue1.addEventListener('click', theClickHandler);
   fullCatalogue[random1].clicks++;
   catalogue2.addEventListener('click', theClickHandler);
@@ -110,7 +110,7 @@ function showRandomItems() {
   catalogue3.addEventListener('click', theClickHandler);
   fullCatalogue[random3].clicks++;
 
-// Here the new items get named so I can put them in array for comparisson
+  // Here the new items get named so I can put them in array for comparisson
   var currentItem1 = fullCatalogue[random1]
   console.log('currentItem1 is', currentItem1.name);
   var currentItem2 = fullCatalogue[random2]
@@ -118,7 +118,7 @@ function showRandomItems() {
   var currentItem3 = fullCatalogue[random3]
   console.log('currentItem1 is', currentItem3.name);
 
-// moving items in, taking them out, so 3 per current and recent arrays, so we can check against repeats later
+  // moving items in, taking them out, so 3 per current and recent arrays, so we can check against repeats later
   currentGroup.unshift(currentItem1.name, currentItem2.name, currentItem3.name);
   recentGroup.unshift(currentGroup[3], currentGroup[4], currentGroup[5]);
   currentGroup.pop();
@@ -134,7 +134,7 @@ function showRandomItems() {
 
   // Click through to results
   iterations++;
-  if(iterations>25){
+  if (iterations === 25) {
     showResults();
   }
 }
@@ -148,24 +148,28 @@ catalogue1.addEventListener('click', theClickHandler);
 catalogue2.addEventListener('click', theClickHandler);
 catalogue3.addEventListener('click', theClickHandler);
 
-// Write a function to render results of the clicking
-
-function showResults(){
+// Write a function to render results of the clicking in the form of a list with the effect of "3 votes for the Banana Slicer!"
+function showResults() {
   // cache from DOM
-  var racknstack=document.getElementById('results');
-// create dynamically
-  racknstack.innerHTML='';
-// iterate through all the item objects and their properties
-for (var i = 0; i<fullCatalogue.length;i++){
-  var listline = document.createElement('li');
-  // looking at the object we are on
-  listline.textContent = fullCatalogue[i].name + ' was chosen ' + fullCatalogue[i].clicks + ' times.';
-  // attach it to our cached DOM list element
-  racknstack.appendChild(listline);
+  var racknstack = document.getElementById('results');
+  // create dynamically
+  racknstack.innerHTML = '';
+  // iterate through all the item objects and their properties
+  for (var i = 0; i < fullCatalogue.length; i++) {
+    var listline = document.createElement('li');
+    // looking at the object we are on
+    listline.textContent = fullCatalogue[i].name + ' was chosen ' + fullCatalogue[i].clicks + ' times.';
+    // attach it to our cached DOM list element
+    racknstack.appendChild(listline);
+  }
 }
-}
-
+// 
 function theClickHandler(event) {
   console.log('target', event.target);
   showRandomItems();
+  if (iterations === 25) {
+    document.getElementById("catalogue1").removeEventListener("click", theClickHandler);
+    document.getElementById("catalogue2").removeEventListener("click", theClickHandler);
+    document.getElementById("catalogue3").removeEventListener("click", theClickHandler);
+  }
 }
