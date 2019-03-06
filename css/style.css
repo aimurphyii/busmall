@@ -1,9 +1,31 @@
 body{
   font-family: futura;
-  background-color: cornsilk;
-  color: darkslategray;
+  background-color: #E4FDE1;
+  color: rgba(106, 150, 115, 0.767);
+  margin: 20px auto;
+  width: 90%;
+  text-align: center;
+}
+
+header{
+  color: rgb(106, 150, 115);
+  font-size: xx-large;
+  margin: 10px;
+}
+
+h3{
+  font-size: larger;
+  color: #648381c5;
+  margin:10px;
 }
 
 img{
-  width: 300px;
+  max-height: 200px;
+  margin: 20px;
+  margin-bottom: 20px;
 }
+
+li{
+  margin:5px;
+}
+
