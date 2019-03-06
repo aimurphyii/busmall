@@ -4,15 +4,22 @@
 var catalogue1 = document.getElementById('catalogue1');
 var catalogue2 = document.getElementById('catalogue2');
 var catalogue3 = document.getElementById('catalogue3');
-// Make an array to capture images
+
+// This is a starting array, that will get updated with each iteration
+var displayed = [
+  catalogue1,
+  catalogue2,
+  catalogue3,
+]
+
+// Make an array to capture the entire pool of images
 var fullCatalogue = [];
-// To control the duplication assign the original to comapre against, and then reassign as you go along, cache the currentgroup as a past group and compare to new current group
-var recentGroup = 0;
+
+// To control the duplication assign the original to compare against, and then reassign as you go along, cache the displayed as a past group and compare to new current group
+var recentGroup = [];
 
 // Make a 25 turn counter
-var iterations = [];
-// Make a group catcher
-
+var iterations = 0;
 
 // Create a constructor function for catalogue photos. This is my image maker. It will stock my array.
 
@@ -37,133 +44,57 @@ new BusMallProduct('bubblegum');
 new BusMallProduct('chair');
 new BusMallProduct('cthulhu');
 
-function renderIteration() {
-  var currentGroup = [];
+// Now we want to restock our display items at random but unique from eachother
 
-  function showRandomItem1() {
-    // Make a function that will generate 3 items from our catalogue at random. Math.random gives us a value between 0 and 1. We can multiply that value by the length of our array in order to call an index from our array. We will need to use Math.floor, so that we get integers and not decimal values.
+// function renderIteration() {
+  // i is the position in the array of display items, we want to push new random items in
+  var i;
+  for (i = 0; i < displayed.length; i++) {
+    recentGroup = displayed.shift(0,1,2);
 
-    var random = Math.floor(Math.random() * fullCatalogue.length);
+    var random = Math.floor(Math.random() * fullCatalogue.length) + 1;
+    if (displayed.indexOf(random) === -1) displayed.push(random);}
+    function showRandomItem() {
+      // Make a function that will generate 3 items from our catalogue at random. Math.random gives us a value between 0 and 1. We can multiply that value by the length of our array in order to call an index from our array. We will need to use Math.floor, so that we get integers and not decimal values.
 
+     
+      console.log('random this time is ', random)
+      console.log('random displayed is ',displayed);
+      // Now we will get our cached image from the DOM and chage the source attribute so it's file path will randomize... giving us random images.
 
-    // Now we will get our cached image from the DOM and chage the source attribute so it's file path will randomize... giving us random images.
+      displayed[i].src = fullCatalogue[random].filepath;
+      displayed[i].alt = fullCatalogue[random].name;
+      displayed[i].title = fullCatalogue[random].name;
 
-    catalogue1.src = fullCatalogue[random].filepath;
-    catalogue1.alt = fullCatalogue[random].name;
-    catalogue1.title = fullCatalogue[random].name;
+      // Now that the image is coming into view we need to count the views
 
-    // Now that the image is coming into view we need to count the views
+      fullCatalogue[random].views++;
+      console.log('current item is ', fullCatalogue[random]);
 
-    fullCatalogue[random].views++;
-    console.log('current item is ', fullCatalogue[random]);
+      displayed[i].addEventListener('click', theClickHandler);
+      fullCatalogue[random].clicks++;
 
+      var currentItem = fullCatalogue[random]
+      console.log('currentItem1 is', currentItem.name);
 
-    catalogue1.addEventListener('click', theClickHandler);
-    fullCatalogue[random].clicks++;
-
-    var currentItem1 = fullCatalogue[random]
-    console.log('currentItem1 is', currentItem1.name);
-
-    currentGroup.push(currentItem1.name);
-
-  }
-
-  function showRandomItem2() {
-    // Make a function that will generate 3 items from our catalogue at random. Math.random gives us a value between 0 and 1. We can multiply that value by the length of our array in order to call an index from our array. We will need to use Math.floor, so that we get integers and not decimal values.
-
-    var random = Math.floor(Math.random() * fullCatalogue.length);
-  
-
-    // Now we will get our cached image from the DOM and chage the source attribute so it's file path will randomize... giving us random images.
-
-    catalogue2.src = fullCatalogue[random].filepath;
-    catalogue2.alt = fullCatalogue[random].name;
-    catalogue2.title = fullCatalogue[random].name;
-
-    // Now that the image is coming into view we need to count the views
-
-    fullCatalogue[random].views++;
-    console.log('current item is ', fullCatalogue[random]);
-
-
-    catalogue2.addEventListener('click', theClickHandler);
-    fullCatalogue[random].clicks++;
-
-    var currentItem2 = fullCatalogue[random];
-
-    currentGroup.push(currentItem2.name);
-  }
-
-  function showRandomItem3() {
-    // Make a function that will generate 3 items from our catalogue at random. Math.random gives us a value between 0 and 1. We can multiply that value by the length of our array in order to call an index from our array. We will need to use Math.floor, so that we get integers and not decimal values.
-
-    var random = Math.floor(Math.random() * fullCatalogue.length);
-
-    // Now we will get our cached image from the DOM and chage the source attribute so it's file path will randomize... giving us random images.
-
-    catalogue3.src = fullCatalogue[random].filepath;
-    catalogue3.alt = fullCatalogue[random].name;
-    catalogue3.title = fullCatalogue[random].name;
-
-    // Now that the image is coming into view we need to count the views
-
-    fullCatalogue[random].views++;
-    console.log('current item is ', fullCatalogue[random]);
-
-
-    catalogue3.addEventListener('click', theClickHandler);
-    fullCatalogue[random].clicks++;
-
-    var currentItem3 = fullCatalogue[random];
-
-    currentGroup.push(currentItem3.name);
-  }
-
-    showRandomItem1();
-    catalogue1.addEventListener('click', theClickHandler);
-
-    showRandomItem2();
-    catalogue2.addEventListener('click', theClickHandler);
-
-    showRandomItem3();
-    catalogue3.addEventListener('click', theClickHandler);
-
-    console.log('currentGroup is ', currentGroup)
+      // displayed.push(currentItem.name);
+    }
+    showRandomItem();
+    displayed[i].addEventListener('click', theClickHandler);
+    console.log('displayed is ', displayed)
 
     // Make sure that random1 2 and 3 do not equal
-    if (currentGroup[0] === currentGroup[1] || currentGroup[0] === currentGroup[2]){
-      showRandomItem1();
+    if (displayed[0] === displayed[1] || displayed[0] === displayed[2]) {
+      showRandomItem();
     }
-    console.log('currentGroup is ', currentGroup);
+    console.log('displayed is ', displayed);
 
 
     function theClickHandler(event) {
       console.log('target', event.target);
-      showRandomItem1();
-      showRandomItem2();
-      showRandomItem3();
+      showRandomItem();
     }
 
-    // var currentGroup = recentGroup;
-    // showRandomItem1();
-    // catalogue1.addEventListener('click', theClickHandler);
+// }
 
-    // showRandomItem2();
-    // catalogue2.addEventListener('click', theClickHandler);
-
-    // showRandomItem3();
-    // catalogue3.addEventListener('click', theClickHandler);
-
-    // if (currentGroup.includes(recentGroup)){
-    //   renderIteration();
-    // }
-
-  
-
-  }
-
-  renderIteration();
-
-
-
-
+// renderIteration();
