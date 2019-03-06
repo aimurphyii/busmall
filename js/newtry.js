@@ -10,7 +10,7 @@ var catalogue3 = document.getElementById('catalogue3');
 var fullCatalogue = [];
 
 // Make a 25 turn counter
-var iterations = [];
+var iterations = 0;
 
 // Make a group catcher
 
@@ -67,8 +67,6 @@ function showRandomItems() {
 
   // Make a function that will generate 3 items from our catalogue at random. Math.random gives us a value between 0 and 1. We can multiply that value by the length of our array in order to call an index from our array. We will need to use Math.floor, so that we get integers and not decimal values.
 
-
-
   do {
     var random1 = Math.floor(Math.random() * fullCatalogue.length);
     var random2 = Math.floor(Math.random() * fullCatalogue.length);
@@ -80,7 +78,6 @@ function showRandomItems() {
     } while (recentGroup.includes(currentGroup));
   } while (random1 === random2 || random1 === random3 || random2 === random3)
 
-  // (recentGroup.includes(currentGroup[0])||recentGroup.includes(currentGroup[1])||recentGroup.includes(currentGroup[2])
 
   // Now we will get our cached image from the DOM and chage the source attribute so it's file path will randomize... giving us random images.
 
@@ -105,7 +102,7 @@ function showRandomItems() {
   fullCatalogue[random3].views++;
   console.log('current item is ', fullCatalogue[random3]);
 
-
+// We also want to count how many times it is chosen
   catalogue1.addEventListener('click', theClickHandler);
   fullCatalogue[random1].clicks++;
   catalogue2.addEventListener('click', theClickHandler);
@@ -113,6 +110,7 @@ function showRandomItems() {
   catalogue3.addEventListener('click', theClickHandler);
   fullCatalogue[random3].clicks++;
 
+// Here the new items get named so I can put them in array for comparisson
   var currentItem1 = fullCatalogue[random1]
   console.log('currentItem1 is', currentItem1.name);
   var currentItem2 = fullCatalogue[random2]
@@ -120,7 +118,7 @@ function showRandomItems() {
   var currentItem3 = fullCatalogue[random3]
   console.log('currentItem1 is', currentItem3.name);
 
-
+// moving items in, taking them out, so 3 per current and recent arrays, so we can check against repeats later
   currentGroup.unshift(currentItem1.name, currentItem2.name, currentItem3.name);
   recentGroup.unshift(currentGroup[3], currentGroup[4], currentGroup[5]);
   currentGroup.pop();
@@ -134,19 +132,38 @@ function showRandomItems() {
   console.log('recentGroup is ', recentGroup);
   console.log('deadgroup is ', deadGroup);
 
-
+  // Click through to results
+  iterations++;
+  if(iterations>25){
+    showResults();
+  }
 }
 
+// Calling all that stuff I just wrote. omg plz work~
 showRandomItems();
-console.log(showRandomItems());
 
 
+// These make sure the clicks register with our DOM elements
 catalogue1.addEventListener('click', theClickHandler);
-
 catalogue2.addEventListener('click', theClickHandler);
-
 catalogue3.addEventListener('click', theClickHandler);
 
+// Write a function to render results of the clicking
+
+function showResults(){
+  // cache from DOM
+  var racknstack=document.getElementById('results');
+// create dynamically
+  racknstack.innerHTML='';
+// iterate through all the item objects and their properties
+for (var i = 0; i<fullCatalogue.length;i++){
+  var listline = document.createElement('li');
+  // looking at the object we are on
+  listline.textContent = fullCatalogue[i].name + ' was chosen ' + fullCatalogue[i].clicks + ' times.';
+  // attach it to our cached DOM list element
+  racknstack.appendChild(listline);
+}
+}
 
 function theClickHandler(event) {
   console.log('target', event.target);

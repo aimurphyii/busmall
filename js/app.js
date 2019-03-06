@@ -48,8 +48,7 @@ new BusMallProduct('cthulhu');
 
 // function renderIteration() {
   // i is the position in the array of display items, we want to push new random items in
-  var i;
-  for (i = 0; i < displayed.length; i++) {
+  for (var i = 0; i < displayed.length; i++) {
     recentGroup = displayed.shift(0,1,2);
 
     var random = Math.floor(Math.random() * fullCatalogue.length) + 1;
