@@ -7,11 +7,13 @@ body{
   text-align: center;
 }
 
+
 header{
   color: rgb(106, 150, 115);
   font-size: xx-large;
   margin: 10px;
 }
+
 
 h3{
   font-size: larger;
@@ -19,31 +21,38 @@ h3{
   margin:10px;
 }
 
+
 img{
-  max-height: 200px;
+  height: 200px;
+  width: 250px;
   margin: 20px;
   margin-bottom: 20px;
+  border: 2px solid rgba(106, 150, 115, 0.767);
 }
+
 
 .items{
   margin-bottom: 35px;
   text-transform: capitalize;
 }
 
+
 .items li{
   display: inline;
   margin:25px;
 }
 
+
 section{
   text-align: center;
 }
 
+
 table{
   margin: auto;
   text-transform: capitalize;
-
 }
+
 
 table td{
   padding: 5px;
