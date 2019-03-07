@@ -201,6 +201,7 @@ function theClickHandler(event) {
 }
 
 // now we are going to build out the data object for our chart
+
 var data = {
   labels: titles,
   datasets: [
@@ -238,6 +239,7 @@ function drawChart() {
 
   // now we are going to build the chart with all the stuff we collected for it like songChart and ctx... new Chart is able to run because we linked to it in the script src in head
   // params are ctx and a big damn object with at least type and data
+  
   busMallChart = new Chart(ctx, {
     type: 'bar',
     data: data,
