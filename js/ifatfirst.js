@@ -91,9 +91,9 @@ blurb3.textContent = fullCatalogue[third].name;
 fullCatalogue[third].views++;
 
 // This was the hardest part and it is still not perfect, but at least there aren't double logged clicks. This is an issue od WHEN registered... bubble or capture. Need to fine tune
-catalogue1.addEventListener('click', theClickHandler, false);
-catalogue2.addEventListener('click', theClickHandler, false);
-catalogue3.addEventListener('click', theClickHandler, false);
+catalogue1.addEventListener('mousedown', theClickHandler, false);
+catalogue2.addEventListener('mousedown', theClickHandler, false);
+catalogue3.addEventListener('mousedown', theClickHandler, false);
 
 // If the event happens on 1, log clicks on 1, and so forth...
 if (catalogue1.event) {
@@ -120,9 +120,9 @@ showMeBusMall();
 // Write a function to bring the survey to a close and display the results
 function showMeResults(){
   // Brign to a close by turning off the event handler
-  document.getElementById("catalogue1").removeEventListener("click", theClickHandler);
-  document.getElementById("catalogue2").removeEventListener("click", theClickHandler);
-  document.getElementById("catalogue3").removeEventListener("click", theClickHandler);
+  document.getElementById("catalogue1").removeEventListener('mousedown', theClickHandler);
+  document.getElementById("catalogue2").removeEventListener('mousedown', theClickHandler);
+  document.getElementById("catalogue3").removeEventListener('mousedown', theClickHandler);
 
   // get the <ul> element from the DOM so we can anchor our result list
   var busMallFavorites = document.getElementById('results');
