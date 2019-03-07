@@ -68,7 +68,8 @@ console.log('displayItem contains ', displayItem[0], displayItem);
 var first = displayItem[0]; 
 var second = displayItem[1];
 var third = displayItem[2];
-// change src and path of the cached imgs to my random display numbers array
+
+// Change src and path of the cached imgs to my random display numbers array, display item names, and track their views
 
 catalogue1.src = fullCatalogue[first].filepath;
 catalogue1.alt = fullCatalogue[first].name;
@@ -90,9 +91,11 @@ blurb3.textContent = fullCatalogue[third].name;
 fullCatalogue[third].views++;
 
 // This was the hardest part and it is still not perfect, but at least there aren't double logged clicks. This is an issue od WHEN registered... bubble or capture. Need to fine tune
-catalogue1.addEventListener('click', theClickHandler);
-catalogue2.addEventListener('click', theClickHandler);
-catalogue3.addEventListener('click', theClickHandler);
+catalogue1.addEventListener('click', theClickHandler, false);
+catalogue2.addEventListener('click', theClickHandler, false);
+catalogue3.addEventListener('click', theClickHandler, false);
+
+// If the event happens on 1, log clicks on 1, and so forth...
 if (catalogue1.event) {
   fullCatalogue[first].clickedOn++;
 } else if (catalogue2.event) {
@@ -108,7 +111,7 @@ displayItem.shift();
 
 // Up to 25 clicks can be made, then show the results
 iterations++;
-if (iterations === 5){
+if (iterations === 25){
   showMeResults();
 }
 }
@@ -128,6 +131,7 @@ function showMeResults(){
   busMallFavorites.innerHTML = '';
   var header = document.createElement('tr');
   header.innerHTML = '<td>item name</td><td>times chosen</td><td>times seen</td>'
+  // Attach it, or it won't show up:
   busMallFavorites.appendChild(header);
 
   // and display the raw numbers
@@ -136,8 +140,6 @@ function showMeResults(){
 
     // We are iterating through objects and grabbing data to display
     itemDetails.innerHTML = '<td>' + fullCatalogue[i].name + '</td>'+'<td>' + fullCatalogue[i].clickedOn  + '</td>'+ '<td>' + fullCatalogue[i].views  + '</td>'
-
-    // document.createElement('td')fullCatalogue[i].name + ' was chosen ' + fullCatalogue[i].clickedOn + ' times, and viewed ' + fullCatalogue[i].views + ' times!';
 
     // Make it show by attaching to the list element
     busMallFavorites.appendChild(itemDetails);
@@ -148,5 +150,4 @@ function showMeResults(){
 function theClickHandler(event) {
   console.log('target, ', event.target)
   showMeBusMall();
-
 }
