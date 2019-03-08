@@ -24,15 +24,16 @@ var chartDrawn = false;
 // adding some empty arrays for our chart now
 var votes = [];
 var titles = [];
+var clicks = 'number of votes'
 
 // this function will update our votes, we iterate through fullCatalogue array, look at each object, the votes, and the titles and add them into votes and titles above so that they show up in our chart
-function updateChartArrays() {
-  for (var i = 0; i < fullCatalogue.length; i++) {
-    // look at our songs array, look at each object, look at the songs, get the title, and then get the matching votes. no need to push because we are changing the value of the item at that location--we are assigning values to exact locations. this takes and updates values instead of pushing on the end.
-    titles[i] = fullCatalogue[i].name;
-    votes[i] = fullCatalogue[i].clickedOn;
-  }
-}
+// function updateChartArrays() {
+//   for (var i = 0; i < fullCatalogue.length; i++) {
+//     // look at our songs array, look at each object, look at the songs, get the title, and then get the matching votes. no need to push because we are changing the value of the item at that location--we are assigning values to exact locations. this takes and updates values instead of pushing on the end.
+//     titles[i] = fullCatalogue[i].name;
+//     votes[i] = fullCatalogue[i].clickedOn;
+//   }
+// }
 
 
 // Create a constructor function for catalogue photos. This is my image maker. It will stock my catalogue array.
@@ -76,6 +77,7 @@ var displayItem = [];
 // I'm going to create a random number, between 1 and 20 (for the 20 items in the catalogue)
 // var catalogueItem = Math.floor(Math.random() * fullCatalogue.length);
 
+
 function showMeBusMall() {
   // I'm going to assign this number and create a total of 6 unique numbers so there will be no conflicts of repeated images
   while (displayItem.length < 6) {
@@ -89,6 +91,16 @@ function showMeBusMall() {
   var second = displayItem[1];
   var third = displayItem[2];
 
+
+  // If the event happens on 1, log clicks on 1, and so forth...
+  if (catalogue1.event) {
+    fullCatalogue[first].clickedOn++;
+  } else if (catalogue2.event) {
+    fullCatalogue[second].clickedOn++;
+  } else {
+    fullCatalogue[third].clickedOn++;
+  }
+
   // Change src and path of the cached imgs to my random display numbers array, display item names, and track their views
 
   catalogue1.src = fullCatalogue[first].filepath;
@@ -96,7 +108,6 @@ function showMeBusMall() {
   catalogue1.title = fullCatalogue[first].name;
   blurb1.textContent = fullCatalogue[first].name;
   fullCatalogue[first].views++;
-
 
   catalogue2.src = fullCatalogue[second].filepath;
   catalogue2.alt = fullCatalogue[second].name;
@@ -115,14 +126,7 @@ function showMeBusMall() {
   catalogue2.addEventListener('mousedown', theClickHandler, false);
   catalogue3.addEventListener('mousedown', theClickHandler, false);
 
-  // If the event happens on 1, log clicks on 1, and so forth...
-  if (catalogue1.event) {
-    fullCatalogue[first].clickedOn++;
-  } else if (catalogue2.event) {
-    fullCatalogue[second].clickedOn++;
-  } else {
-    fullCatalogue[third].clickedOn++;
-  }
+
   updateChartArrays();
   // This is going to kick out the top3 that we see, so our array becomes less than 6 and has to restock.
   displayItem.shift();
@@ -137,7 +141,14 @@ function showMeBusMall() {
   }
 }
 showMeBusMall();
-
+// this function will update our votes, we iterate through fullCatalogue array, look at each object, the votes, and the titles and add them into votes and titles above so that they show up in our chart
+function updateChartArrays() {
+  for (var i = 0; i < fullCatalogue.length; i++) {
+    // look at our songs array, look at each object, look at the songs, get the title, and then get the matching votes. no need to push because we are changing the value of the item at that location--we are assigning values to exact locations. this takes and updates values instead of pushing on the end.
+    titles[i] = fullCatalogue[i].name;
+    votes[i] = fullCatalogue[i].clickedOn;
+  }
+}
 // Write a function to bring the survey to a close and display the results
 function showMeResults() {
   // Brign to a close by turning off the event handler
@@ -181,6 +192,7 @@ var data = {
   labels: titles,
   datasets: [
     {
+      label: clicks,
       data: votes,
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
