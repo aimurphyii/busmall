@@ -16,7 +16,7 @@ var fullCatalogue = [];
 var iterations = 0;
 
 // now we need a variable for our actual chart, we declare up here and change it's value later
-var stackedBar;
+var busMallChart;
 
 // Make a boolean for the chart
 var chartDrawn = false;
@@ -25,122 +25,8 @@ var chartDrawn = false;
 var votes = [];
 var titles = [];
 var clicks = 'number of votes'
+var countIt = [];
 
-// this function will update our votes, we iterate through fullCatalogue array, look at each object, the votes, and the titles and add them into votes and titles above so that they show up in our chart
-// function updateChartArrays() {
-//   for (var i = 0; i < fullCatalogue.length; i++) {
-//     // look at our songs array, look at each object, look at the songs, get the title, and then get the matching votes. no need to push because we are changing the value of the item at that location--we are assigning values to exact locations. this takes and updates values instead of pushing on the end.
-//     titles[i] = fullCatalogue[i].name;
-//     votes[i] = fullCatalogue[i].clickedOn;
-//   }
-// }
-
-
-// Create a constructor function for catalogue photos. This is my image maker. It will stock my catalogue array.
-function BusMallProduct(name, filepath) {
-  this.name = name;
-  this.filepath = filepath;
-  this.views = 0;
-  this.clickedOn = 0;
-
-  // At this point object will have been built so now we can push into the array...
-  fullCatalogue.push(this);
-}
-
-
-//Run the constructor function with our catalogue, so we have a full catalogue of items to run through. Now these guys are in my array, the bus mall's catalogue.
-
-new BusMallProduct('R2D2 Rolly Bag', 'img/bag.jpg');
-new BusMallProduct('Banana Slicer', 'img/banana.jpg');
-new BusMallProduct('Toilet Caddy', 'img/bathroom.jpg');
-new BusMallProduct('Sandal Boots', 'img/boots.jpg');
-new BusMallProduct('Breakfast Buddy', 'img/breakfast.jpg');
-new BusMallProduct('Meat Gum', 'img/bubblegum.jpg');
-new BusMallProduct('Passive Aggressive Chair', 'img/chair.jpg');
-new BusMallProduct('Our Lord', 'img/cthulhu.jpg');
-new BusMallProduct('Quacker Muzzle', 'img/dog-duck.jpg');
-new BusMallProduct('Canned Dragon', 'img/dragon.jpg');
-new BusMallProduct('Picnic Pens', 'img/pen.jpg');
-new BusMallProduct('Probably More Mess Than Good', 'img/pet-sweep.jpg');
-new BusMallProduct('Pizza Scissors', 'img/scissors.jpg');
-new BusMallProduct('Sharky Sleeper', 'img/shark.jpg');
-new BusMallProduct('Build Baby\'s Immune System', 'img/sweep.jpg');
-new BusMallProduct('Traditional Hoth Sleepingbag', 'img/tauntaun.jpg');
-new BusMallProduct('Canned Unicorn for the depraved', 'img/unicorn.jpg');
-new BusMallProduct('Suggestive Tentacle', 'img/usb.gif');
-new BusMallProduct('Water Mess', 'img/water-can.jpg');
-new BusMallProduct('Straw Not Included', 'img/wine-glass.jpg');
-
-// an array to store the indexes of the items displayed
-var displayItem = [];
-
-// I'm going to create a random number, between 1 and 20 (for the 20 items in the catalogue)
-// var catalogueItem = Math.floor(Math.random() * fullCatalogue.length);
-
-
-function showMeBusMall() {
-  // I'm going to assign this number and create a total of 6 unique numbers so there will be no conflicts of repeated images
-  while (displayItem.length < 6) {
-    var catalogueItem = Math.floor(Math.random() * fullCatalogue.length);
-    if (displayItem.indexOf(catalogueItem) === -1) displayItem.push(catalogueItem);
-  }
-  console.log('displayItem contains ', displayItem[0], displayItem);
-
-  // the first 3 of my 6 numbers will be displayed, and they'll replace 3 at a time with each mouse-click selection... push 3 in, shift the top 3 out
-  var first = displayItem[0];
-  var second = displayItem[1];
-  var third = displayItem[2];
-
-
-  // If the event happens on 1, log clicks on 1, and so forth...
-  if (catalogue1.event) {
-    fullCatalogue[first].clickedOn++;
-  } else if (catalogue2.event) {
-    fullCatalogue[second].clickedOn++;
-  } else {
-    fullCatalogue[third].clickedOn++;
-  }
-
-  // Change src and path of the cached imgs to my random display numbers array, display item names, and track their views
-
-  catalogue1.src = fullCatalogue[first].filepath;
-  catalogue1.alt = fullCatalogue[first].name;
-  catalogue1.title = fullCatalogue[first].name;
-  blurb1.textContent = fullCatalogue[first].name;
-  fullCatalogue[first].views++;
-
-  catalogue2.src = fullCatalogue[second].filepath;
-  catalogue2.alt = fullCatalogue[second].name;
-  catalogue2.title = fullCatalogue[second].name;
-  blurb2.textContent = fullCatalogue[second].name;
-  fullCatalogue[second].views++;
-
-  catalogue3.src = fullCatalogue[third].filepath;
-  catalogue3.alt = fullCatalogue[third].name;
-  catalogue3.title = fullCatalogue[third].name;
-  blurb3.textContent = fullCatalogue[third].name;
-  fullCatalogue[third].views++;
-
-  // This was the hardest part and it is still not perfect, but at least there aren't double logged clicks. This is an issue od WHEN registered... bubble or capture. Need to fine tune
-  catalogue1.addEventListener('mousedown', theClickHandler, false);
-  catalogue2.addEventListener('mousedown', theClickHandler, false);
-  catalogue3.addEventListener('mousedown', theClickHandler, false);
-
-
-  updateChartArrays();
-  // This is going to kick out the top3 that we see, so our array becomes less than 6 and has to restock.
-  displayItem.shift();
-  displayItem.shift();
-  displayItem.shift();
-
-  // Up to 25 clicks can be made, then show the results
-  iterations++;
-  if (iterations === 25) {
-    showMeResults();
-    drawChart();
-  }
-}
-showMeBusMall();
 // this function will update our votes, we iterate through fullCatalogue array, look at each object, the votes, and the titles and add them into votes and titles above so that they show up in our chart
 function updateChartArrays() {
   for (var i = 0; i < fullCatalogue.length; i++) {
@@ -149,12 +35,142 @@ function updateChartArrays() {
     votes[i] = fullCatalogue[i].clickedOn;
   }
 }
+
+
+// Create a constructor function for catalogue photos. This is my image maker. It will stock my catalogue array.
+function BusMallProduct(name, filepath, index) {
+  this.name = name;
+  this.filepath = filepath;
+  this.views = 0;
+  this.clickedOn = 0;
+  this.index = index;
+
+  // At this point object will have been built so now we can push into the array...
+  fullCatalogue.push(this);
+}
+
+
+//Run the constructor function with our catalogue, so we have a full catalogue of items to run through. Now these guys are in my array, the bus mall's catalogue.
+
+new BusMallProduct('R2D2 Rolly Bag', 'img/bag.jpg', '0');
+new BusMallProduct('Banana Slicer', 'img/banana.jpg', '1');
+new BusMallProduct('Toilet Caddy', 'img/bathroom.jpg', '2');
+new BusMallProduct('Sandal Boots', 'img/boots.jpg', '3');
+new BusMallProduct('Breakfast Buddy', 'img/breakfast.jpg', '4');
+new BusMallProduct('Meat Gum', 'img/bubblegum.jpg', '5');
+new BusMallProduct('Passive Aggressive Chair', 'img/chair.jpg', '6');
+new BusMallProduct('Our Lord', 'img/cthulhu.jpg', '7');
+new BusMallProduct('Quacker Muzzle', 'img/dog-duck.jpg', '8');
+new BusMallProduct('Canned Dragon', 'img/dragon.jpg', '9');
+new BusMallProduct('Picnic Pens', 'img/pen.jpg', '10');
+new BusMallProduct('Probably More Mess Than Good', 'img/pet-sweep.jpg', '11');
+new BusMallProduct('Pizza Scissors', 'img/scissors.jpg', '12');
+new BusMallProduct('Sharky Sleeper', 'img/shark.jpg', '13');
+new BusMallProduct('Build Baby\'s Immune System', 'img/sweep.jpg', '14');
+new BusMallProduct('Traditional Hoth Sleepingbag', 'img/tauntaun.jpg', '15');
+new BusMallProduct('Canned Unicorn for the depraved', 'img/unicorn.jpg', '16');
+new BusMallProduct('Suggestive Tentacle', 'img/usb.gif', '17');
+new BusMallProduct('Water Mess', 'img/water-can.jpg', '18');
+new BusMallProduct('Straw Not Included', 'img/wine-glass.jpg', '19');
+
+// an array to store the indexes of the items displayed
+var displayItem = [];
+
+// I'm going to create a random number, between 1 and 20 (for the 20 items in the catalogue)
+function showMeBusMall() {
+  // I'm going to assign this number and create a total of 6 unique numbers so there will be no conflicts of repeated images
+
+  // var catalogueItem = Math.floor(Math.random() * fullCatalogue.length);
+
+  while (displayItem.length < 6) {
+    var catalogueItem = Math.floor(Math.random() * fullCatalogue.length);
+    if (displayItem.indexOf(catalogueItem) === -1) displayItem.push(catalogueItem);
+  }
+  console.log('displayItem at contains ', displayItem[0], displayItem);
+  // the first 3 of my 6 numbers will be displayed, and they'll replace 3 at a time with each mouse-click selection... push 3 in, shift the top 3 out
+  var first = displayItem[0];
+  var second = displayItem[1];
+  var third = displayItem[2];
+
+  // Change src and path of the cached imgs to my random display numbers array, display item names, and track their views
+  // I also added display names for users to read, and I also added inexes to track my items, and ulitmate used these indexes to keep track of my clicks! AND THEY WORK!!!!
+
+  catalogue1.src = fullCatalogue[first].filepath;
+  catalogue1.alt = fullCatalogue[first].name;
+  catalogue1.title = fullCatalogue[first].name;
+  catalogue1.index = fullCatalogue[first].index;
+  catalogue1.clickedOn = fullCatalogue[first].clickedOn;
+  blurb1.textContent = fullCatalogue[first].name;
+  fullCatalogue[first].views++;
+  fullCatalogue[first].clickedOn;
+
+  catalogue2.src = fullCatalogue[second].filepath;
+  catalogue2.alt = fullCatalogue[second].name;
+  catalogue2.title = fullCatalogue[second].name;
+  catalogue2.index = fullCatalogue[second].index;
+  catalogue2.clickedOn = fullCatalogue[second].clickedOn;
+  blurb2.textContent = fullCatalogue[second].name;
+  fullCatalogue[second].views++;
+  fullCatalogue[second].clickedOn;
+
+  catalogue3.src = fullCatalogue[third].filepath;
+  catalogue3.alt = fullCatalogue[third].name;
+  catalogue3.title = fullCatalogue[third].name;
+  catalogue3.index = fullCatalogue[third].index;
+  catalogue3.clickedOn = fullCatalogue[third].clickedOn;
+  blurb3.textContent = fullCatalogue[third].name;
+  fullCatalogue[third].views++;
+
+
+  // This was the hardest part and it is still not perfect, but at least there aren't double logged clicks. This is an issue od WHEN registered... bubble or capture. Need to fine tune
+  catalogue1.addEventListener('click', theClickHandler);
+  catalogue2.addEventListener('click', theClickHandler);
+  catalogue3.addEventListener('click', theClickHandler);
+
+
+  updateChartArrays();
+  // This is going to kick out the top3 that we see, so our array becomes less than 6 and has to restock.
+  displayItem.shift();
+  displayItem.shift();
+  displayItem.shift();
+  console.log(countIt);
+
+  // Up to 25 clicks can be made, then show the results
+  iterations++;
+  if (iterations > 25) {
+    showMeResults();
+    drawChart();
+  }
+}
+
+showMeBusMall();
+
+// Create an event handler to react to click events
+function theClickHandler(event) {
+  // this is how I finally was able to get my clicks to track correctly, since I knew my indexes were logging correctly I linked the two
+  fullCatalogue[event.target.index].clickedOn += 1;
+  console.log(event.target.clickedOn);
+  countIt.push(event.target.index);
+  console.log(countIt);
+  showMeBusMall();
+}
+// this function will update our votes, we iterate through fullCatalogue array, look at each object, the votes, and the titles and add them into votes and titles above so that they show up in our chart
+
+function updateChartArrays() {
+  for (var i = 0; i < fullCatalogue.length; i++) {
+    // look at our songs array, look at each object, look at the songs, get the title, and then get the matching votes. no need to push because we are changing the value of the item at that location--we are assigning values to exact locations. this takes and updates values instead of pushing on the end.
+    titles[i] = fullCatalogue[i].name;
+    votes[i] = fullCatalogue[i].clickedOn;
+  }
+}
+
+
 // Write a function to bring the survey to a close and display the results
 function showMeResults() {
-  // Brign to a close by turning off the event handler
-  document.getElementById("catalogue1").removeEventListener('mousedown', theClickHandler);
-  document.getElementById("catalogue2").removeEventListener('mousedown', theClickHandler);
-  document.getElementById("catalogue3").removeEventListener('mousedown', theClickHandler);
+  // Bring to a close by turning off the event handler
+  document.getElementById("catalogue1").removeEventListener('click', theClickHandler);
+  document.getElementById("catalogue2").removeEventListener('click', theClickHandler);
+  document.getElementById("catalogue3").removeEventListener('click', theClickHandler);
 
   // get the <ul> element from the DOM so we can anchor our result list
   var busMallFavorites = document.getElementById('results');
@@ -176,17 +192,15 @@ function showMeResults() {
     // Make it show by attaching to the list element
     busMallFavorites.appendChild(itemDetails);
   }
+  console.log(fullCatalogue[0]);
 }
 
-// Create an event handler to react to click events
-function theClickHandler(event) {
-  console.log('target, ', event.target)
-  showMeBusMall();
-}
+
 
 // get ready for charts... but first, resubmit
 
 // now we are going to build out the data object for our chart
+console.log('titles is',titles);
 
 var data = {
   labels: titles,
@@ -226,20 +240,12 @@ function drawChart() {
 
   // now we are going to build the chart with all the stuff we collected for it like songChart and ctx... new Chart is able to run because we linked to it in the script src in head
   // params are ctx and a big damn object with at least type and data
-
-  stackedBar = new Chart(ctx, {
+  
+  busMallChart = new Chart(ctx, {
     type: 'bar',
     data: data,
-    options: {
-      scales: {
-        xAxes: [{
-          stacked: true
-        }],
-        yAxes: [{
-          stacked: true
-        }]
-      }
-    }
+    // might need more options
+
   });
   // change the boolean now that we drew our chart
   chartDrawn = true;
