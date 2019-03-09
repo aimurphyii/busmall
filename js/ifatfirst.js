@@ -101,25 +101,20 @@ function showMeBusMall() {
   catalogue1.alt = fullCatalogue[first].name;
   catalogue1.title = fullCatalogue[first].name;
   catalogue1.index = fullCatalogue[first].index;
-  catalogue1.clickedOn = fullCatalogue[first].clickedOn;
   blurb1.textContent = fullCatalogue[first].name;
   fullCatalogue[first].views++;
-  fullCatalogue[first].clickedOn;
 
   catalogue2.src = fullCatalogue[second].filepath;
   catalogue2.alt = fullCatalogue[second].name;
   catalogue2.title = fullCatalogue[second].name;
   catalogue2.index = fullCatalogue[second].index;
-  catalogue2.clickedOn = fullCatalogue[second].clickedOn;
   blurb2.textContent = fullCatalogue[second].name;
   fullCatalogue[second].views++;
-  fullCatalogue[second].clickedOn;
 
   catalogue3.src = fullCatalogue[third].filepath;
   catalogue3.alt = fullCatalogue[third].name;
   catalogue3.title = fullCatalogue[third].name;
   catalogue3.index = fullCatalogue[third].index;
-  catalogue3.clickedOn = fullCatalogue[third].clickedOn;
   blurb3.textContent = fullCatalogue[third].name;
   fullCatalogue[third].views++;
 
@@ -139,7 +134,7 @@ function showMeBusMall() {
 
   // Up to 25 clicks can be made, then show the results
   iterations++;
-  if (iterations > 25) {
+  if (iterations === 25) {
     showMeResults();
     drawChart();
   }
@@ -185,7 +180,7 @@ function showMeResults() {
     // Make it show by attaching to the list element
     busMallFavorites.appendChild(itemDetails);
   }
-  console.log(fullCatalogue[0]);
+  // console.log(fullCatalogue[0]);
 }
 
 
