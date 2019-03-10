@@ -1,5 +1,14 @@
 'use strict';
+if (localStorage.busMallCatalogue){
+  localStorage.getItem('busMallCatalogue');
+  JSON.parse(localStorage.busMallCatalogue);
 
+  console.log('parsed data ', JSON.parse(localStorage.busMallCatalogue));
+}else{
+  localStorage.busMallCatalogue = JSON.stringify(fullCatalogue);
+
+  console.log('stringified ',JSON.stringify(fullCatalogue));
+}
 // Get the cached images from DOM
 var catalogue1 = document.getElementById('catalogue1');
 var catalogue2 = document.getElementById('catalogue2');
@@ -181,6 +190,13 @@ function showMeResults() {
     busMallFavorites.appendChild(itemDetails);
   }
   // console.log(fullCatalogue[0]);
+
+  // stringify, then store
+  // var fullCatalogueString = JSON.stringify(fullCatalogue);
+  // // send it to local storage
+  // localStorage.setItem('busMallCatalogue',fullCatalogueString);
+  localStorage.busMallCatalogue = JSON.stringify(fullCatalogue);
+  console.log('stringified ',JSON.stringify(fullCatalogue));
 }
 
 
