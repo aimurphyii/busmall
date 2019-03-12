@@ -34,8 +34,9 @@ var chartDrawn = false;
 // adding some empty arrays for our chart now
 var votes = [];
 var titles = [];
-var clicks = 'number of votes'
 var countIt = [];
+var percents = [];
+var viewings = [];
 
 // this function will update our votes, we iterate through fullCatalogue array, look at each object, the votes, and the titles and add them into votes and titles above so that they show up in our chart
 function updateChartArrays() {
@@ -43,7 +44,11 @@ function updateChartArrays() {
     // look at our songs array, look at each object, look at the songs, get the title, and then get the matching votes. no need to push because we are changing the value of the item at that location--we are assigning values to exact locations. this takes and updates values instead of pushing on the end.
     titles[i] = fullCatalogue[i].shortname;
     votes[i] = fullCatalogue[i].clickedOn;
-  }
+    viewings[i] = fullCatalogue[i].views;
+    percents[i] = Math.floor(fullCatalogue[i].clickedOn/fullCatalogue[i].views*100);
+    if (isNaN (percents[i]))
+      percents[i] = 0;
+    };
 }
 
 
@@ -176,7 +181,7 @@ function showMeResults() {
   // Assign content as empty string so we can dynamically create
   busMallFavorites.innerHTML = '';
   var header = document.createElement('tr');
-  header.innerHTML = '<td>item name</td><td>times chosen</td><td>times seen</td>'
+  header.innerHTML = '<td>item name</td><td>times chosen</td><td>times seen</td><td>favoribilty</td>'
   // Attach it, or it won't show up:
   busMallFavorites.appendChild(header);
 
@@ -185,7 +190,7 @@ function showMeResults() {
     var itemDetails = document.createElement('tr');
 
     // We are iterating through objects and grabbing data to display
-    itemDetails.innerHTML = '<td>' + fullCatalogue[i].name + '</td>' + '<td>' + fullCatalogue[i].clickedOn + '</td>' + '<td>' + fullCatalogue[i].views + '</td>'
+    itemDetails.innerHTML = '<td>' + fullCatalogue[i].name + '</td>' + '<td>' + fullCatalogue[i].clickedOn + '</td>' + '<td>' + fullCatalogue[i].views + '</td>' + '<td>' + percents[i]+'%' + '</td>';
 
     // Make it show by attaching to the list element
     busMallFavorites.appendChild(itemDetails);
@@ -211,8 +216,60 @@ var data = {
   labels: titles,
   datasets: [
     {
-      label: clicks,
+      label: 'votes',
       data: votes,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+      ],
+    },
+    {
+      label: 'views',
+      data: viewings,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+      ],
+    },
+    {
+      label: 'likelihood',
+      data: percents,
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
