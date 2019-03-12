@@ -4,11 +4,12 @@ if (localStorage.busMallCatalogue){
   JSON.parse(localStorage.busMallCatalogue);
 
   console.log('parsed data ', JSON.parse(localStorage.busMallCatalogue));
-}else{
-  localStorage.busMallCatalogue = JSON.stringify(fullCatalogue);
-
-  console.log('stringified ',JSON.stringify(fullCatalogue));
 }
+// else{
+//   localStorage.busMallCatalogue = JSON.stringify(fullCatalogue);
+
+//   console.log('stringified ',JSON.stringify(fullCatalogue));
+// }
 // Get the cached images from DOM
 var catalogue1 = document.getElementById('catalogue1');
 var catalogue2 = document.getElementById('catalogue2');
